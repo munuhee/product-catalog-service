@@ -22,7 +22,7 @@ The **Product Catalog Service** is a Flask-based application aimed at efficient 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/product-catalog-service.git
+    git clone https://github.com/munuhee/product-catalog-service.git
     cd product-catalog-service
     ```
 
@@ -38,9 +38,9 @@ The **Product Catalog Service** is a Flask-based application aimed at efficient 
 
 - **GET /products**: Retrieve all products.
 - **GET /products/{product_id}**: Retrieve a specific product by ID.
-- **POST /products**: Create a new product.
-- **PUT /products/{product_id}**: Update an existing product.
-- **DELETE /products/{product_id}**: Delete a product by ID.
+- **POST /products-create**: Create a new product.
+- **PUT /products/{product_id}/update**: Update an existing product.
+- **DELETE /products/{product_id}/delete**: Delete a product by ID.
 
 ### Sample Request and Response
 
@@ -73,7 +73,7 @@ Response:
 ]
 ```
 
-#### POST /products
+#### POST /product-create
 
 Request:
 
@@ -120,7 +120,7 @@ Please ensure your code follows the project's coding style and includes necessar
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [Apache 2.0 License](LICENSE).
 
 ## Acknowledgements
 
