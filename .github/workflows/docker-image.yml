@@ -41,7 +41,7 @@ jobs:
     - name: Run Tests and Calculate Coverage
       run: |
         pip install pytest pytest-cov
-        pytest -c pytest.ini --cov --cov-fail-under=85
+        FLASK_ENV=${{ secrets.FLASK_ENV }} pytest -c pytest.ini --cov --cov-fail-under=85
 
         env:
           FLASK_ENV:${{ secrets.FLASK_ENV }}
