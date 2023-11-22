@@ -1,5 +1,8 @@
 # Product Catalog Service
 
+[![License](https://img.shields.io/badge/License-Apache-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Python Version](https://img.shields.io/badge/Python-3.10-green)](https://www.python.org/downloads/)
+
 This repository contains a Flask-based Product Catalog Service allowing management of products through various endpoints.
 
 ## Prerequisites and Dependencies
