@@ -43,8 +43,5 @@ jobs:
         pip install pytest pytest-cov
         FLASK_ENV=${{ secrets.FLASK_ENV }} pytest -c pytest.ini --cov --cov-fail-under=85
 
-        env:
-          FLASK_ENV:${{ secrets.FLASK_ENV }}
-
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag product-catalog-service:$(date +%s)
