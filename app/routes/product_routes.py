@@ -65,7 +65,7 @@ def get_product(product_id):
     Retrieves a specific product by its ID.
     """
     try:
-        product = Product.query.get_or_404(product_id)
+        product = db.session.get(Product, product_id)
         if product:
             product_dict = {
                 "id": product.id,
@@ -88,7 +88,7 @@ def product_update(product_id):
     Receives JSON data with updated product information: name, description, category, price.
     """
     try:
-        product = Product.query.get_or_404(product_id)
+        product = db.session.get(Product, product_id)
         if product:
             data = request.get_json()
             product.name = data["name"]
@@ -108,7 +108,7 @@ def product_remove(product_id):
     Deletes a specific product by its ID.
     """
     try:
-        product = Product.query.get_or_404(product_id)
+        product = db.session.get(Product, product_id)
         if product:
             db.session.delete(product)
             db.session.commit()
