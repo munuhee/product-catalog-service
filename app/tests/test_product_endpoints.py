@@ -3,6 +3,7 @@ Contains unit tests to validate the functionality of Flask endpoints handling pr
 - Tests health status, product creation, retrieval, update, and deletion.
 - Initializes a test environment, simulates HTTP requests, and asserts expected behaviors.
 """
+import os
 import unittest
 import json
 from app import app, db
@@ -13,7 +14,7 @@ class TestProductEndpoints(unittest.TestCase):
 
     def setUp(self):
         """Set up the testing environment"""
-        app.config.from_pyfile('config.py')
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('FLASK_ENV')
         self.app = app.test_client()
         with app.app_context():
             db.create_all()
