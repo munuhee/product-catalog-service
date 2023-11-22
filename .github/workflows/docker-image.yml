@@ -25,6 +25,14 @@ jobs:
         python3 -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Initialize database
+      run: |
+        flask db init
+        flask db migrate
+        flask db upgrade
+      env:
+        FLASK_ENV: ${{ secrets.FLASK_ENV }}
+
     - name: Run pylint
       run: |
         pip install pylint
@@ -36,7 +44,7 @@ jobs:
         pytest -c pytest.ini --cov --cov-fail-under=85
 
         env:
-          FLASK_ENV: ${{ secrets.FLASK_ENV }}
+          FLASK_ENV:${{ secrets.FLASK_ENV }}
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag product-catalog-service:$(date +%s)
