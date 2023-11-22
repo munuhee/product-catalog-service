@@ -27,7 +27,8 @@ jobs:
 
     - name: Run pylint
       run: |
-        pylint ./app --fail-under=8
+        pip install pylint
+        pylint ./app --fail-under=8.5
 
     - name: Run tests
       run: |
