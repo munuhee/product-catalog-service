@@ -1,127 +1,82 @@
 # Product Catalog Service
 
-The **Product Catalog Service** is a Flask-based application aimed at efficient management and storage of a comprehensive product catalog. It leverages Docker for containerization and PostgreSQL as the database for storing product-related information.
+This repository contains a Flask-based Product Catalog Service allowing management of products through various endpoints.
 
-## Features
+## Prerequisites and Dependencies
 
-- **Flask Framework**: Utilizes Flask, a lightweight and flexible web framework in Python.
-- **Docker Integration**: Dockerized setup for simplified deployment and development.
-- **PostgreSQL Database**: Uses PostgreSQL for data storage, ensuring reliability and scalability.
-- **Structured Codebase**: Organized code structure with clear separation of concerns for models, routes, and services.
-- **RESTful API**: Provides RESTful endpoints for CRUD operations on the product catalog.
+Before you can run the application, ensure you have the following prerequisites and dependencies:
 
-## Installation
+- **Python 3.10:** Required for running the Flask application.
+- **Docker:** Used for containerizing the application.
+  
+## Contents
 
-### Prerequisites
+- **bin:** Contains the setup script `setup.sh` for cloning and setting up the project.
+- **app:** Directory for the Flask application.
+  - **__init__.py:** Initializes the Flask app, configures SQLAlchemy, and sets up routes.
+  - **config.py:** Holds configurations for the Flask app and tests.
+  - **models:** Includes the `Product` model for database operations.
+  - **routes:** Defines endpoints for product management.
+  - **tests:** Contains unit tests for the product endpoints.
+- **run.py:** Entry point to run the Flask application.
+- **Dockerfile:** Docker configuration for containerizing the application.
+- **.env:** Environment variables configuration file.
+- **LICENCE:** License file for the project.
+- **pytest.ini:** Configuration for pytest.
+- **run.py:** Additional entry point to run the Flask application.
 
-- Docker installed on your system.
-- Python 3.x and pip installed.
+## Running the Application
 
-### Steps
+### Setup
 
 1. Clone the repository:
-
     ```bash
     git clone https://github.com/munuhee/product-catalog-service.git
     cd product-catalog-service
     ```
 
-2. Set up the Docker environment:
-
+2. Grant execution permissions to the setup script:
     ```bash
-    docker-compose up --build
+    chmod +x bin/setup.sh
     ```
 
-3. Access the application via `http://localhost:5000`.
+3. Run the setup script to build the Docker image and start the Flask app:
+    ```bash
+    ./bin/setup.sh
+    ```
 
-## API Endpoints
-
-- **GET /products**: Retrieve all products.
-- **GET /products/{product_id}**: Retrieve a specific product by ID.
-- **POST /products-create**: Create a new product.
-- **PUT /products/{product_id}/update**: Update an existing product.
-- **DELETE /products/{product_id}/delete**: Delete a product by ID.
-
-### Sample Request and Response
-
-#### GET /products
-
-Request:
-
-```http
-GET /products
-```
-
-Response:
-
-```json
-[
-    {
-        "id": 1,
-        "name": "Product A",
-        "description": "Description of Product A",
-        "price": 29.99,
-        "category": "Category A"
-    },
-    {
-        "id": 2,
-        "name": "Product B",
-        "description": "Description of Product B",
-        "price": 39.99,
-        "category": "Category B"
-    }
-]
-```
-
-#### POST /product-create
-
-Request:
-
-```http
-POST /products
-Content-Type: application/json
-
-{
-    "name": "New Product",
-    "description": "Description of New Product",
-    "price": 49.99,
-    "category": "Category C"
-}
-```
-
-Response:
-
-```json
-{
-    "id": 3,
-    "name": "New Product",
-    "description": "Description of New Product",
-    "price": 49.99,
-    "category": "Category C"
-}
-```
+4. Access the application:
+   - Locally: [http://localhost:8080](http://localhost:8080)
+   - Remotely: [http://YOUR_SERVER_IP:8080](http://YOUR_SERVER_IP:8080)
 
 ## Usage
 
-- **API Endpoints**: Utilize the provided endpoints to manage the product catalog.
-- **Database Configuration**: Adjust database configurations in `app/config.py` as needed.
+### HTTP Routes
 
-## Contributing
+- **Health Status:** `/status`
+  - Example: `GET /status` - Retrieves the health status of the service.
 
-We welcome contributions! To contribute to this project:
+- **Create Product:** `/product-create` (POST)
+  - Example: `POST /product-create` - Creates a new product.
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Make your changes and commit them (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Create a new Pull Request.
+- **Get Products:** `/products` (GET)
+  - Example: `GET /products` - Retrieves a list of all products.
 
-Please ensure your code follows the project's coding style and includes necessary tests.
+- **Get Product by ID:** `/products/<product_id>` (GET)
+  - Example: `GET /products/123` - Retrieves product details with ID 123.
 
-## License
+- **Update Product by ID:** `/products/<product_id>/update` (PUT)
+  - Example: `PUT /products/123/update` - Updates product details with ID 123.
 
-This project is licensed under the [Apache 2.0 License](LICENSE).
+- **Delete Product by ID:** `/products/<product_id>/delete` (DELETE)
+  - Example: `DELETE /products/123/delete` - Deletes product with ID 123.
 
-## Acknowledgements
+Refer to the `product_routes.py` file in `app/routes` for detailed endpoint implementations.
 
-Special thanks to all contributors who have helped shape and improve this project.
+## CI/CD Configuration
+
+The `docker-img.yml` file in the repository sets up CI/CD using GitHub Actions for continuous integration and deployment of the Docker image.
+
+## Testing
+
+The `app/tests` directory contains comprehensive unit tests (`test_product_endpoints.py`) for various product-related endpoints. The tests cover functionalities such as health status, product creation, retrieval, update, and deletion.
