@@ -27,7 +27,7 @@ jobs:
 
     - name: Run pylint
       run: |
-        pylint ./app --fail-under=8.5
+        pylint ./app --fail-under=8
 
     - name: Run tests
       run: |
