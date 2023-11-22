@@ -1,0 +1,33 @@
+# Ignore common Python files and directories
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pyo
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore local development files
+.env
+*.log
+venv/
+instance/
+migrations/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore version control files
+.git
+.gitignore
+
+# Ignore Docker related files
+.dockerignore
+Dockerfile
+
+# Ignore Docker-compose related files
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.prod.yml
