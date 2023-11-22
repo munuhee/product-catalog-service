@@ -13,8 +13,7 @@ class TestProductEndpoints(unittest.TestCase):
 
     def setUp(self):
         """Set up the testing environment"""
-        app.config['TESTING'] = True
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+        app.config.from_pyfile('config.py')
         self.app = app.test_client()
         with app.app_context():
             db.create_all()
@@ -36,6 +35,7 @@ class TestProductEndpoints(unittest.TestCase):
     def test_create_product(self):
         """Test create product endpoint"""
         with app.app_context():
+            # Test valid product creation
             data = {
                 "name": "Test Product",
                 "description": "Test Description",
@@ -44,6 +44,13 @@ class TestProductEndpoints(unittest.TestCase):
             }
             response = self.app.post('/product-create', json=data)
             self.assertEqual(response.status_code, 201)
+
+            # Test missing fields in product creation
+            incomplete_data = {
+                "description": "Incomplete Product"
+            }
+            response_missing_fields = self.app.post('/product-create', json=incomplete_data)
+            self.assertEqual(response_missing_fields.status_code, 400)
 
     def test_get_products(self):
         """Test get all products endpoint"""
@@ -75,17 +82,24 @@ class TestProductEndpoints(unittest.TestCase):
             product = Product(name="Test", description="Test Desc", category="Test Cat", price=50.0)
             db.session.add(product)
             db.session.commit()
+
+            # Test valid product retrieval
             response = self.app.get(f'/products/{product.id}')
             self.assertEqual(response.status_code, 200)
             data = json.loads(response.data.decode('utf-8'))
             self.assertEqual(data['name'], 'Test')
 
-    def test_update_product(self):
-        """Test update product endpoint"""
+            # Test product retrieval by invalid ID
+            invalid_id_response = self.app.get('/products/999')  # Non-existent product ID
+            self.assertEqual(invalid_id_response.status_code, 404)
+
+    def test_valid_product_update(self):
+        """Test valid product update endpoint"""
         with app.app_context():
             product = Product(name="Test", description="Test Desc", category="Test Cat", price=50.0)
             db.session.add(product)
             db.session.commit()
+
             updated_data = {
                 "name": "Updated Product",
                 "description": "Updated Description",
@@ -95,14 +109,36 @@ class TestProductEndpoints(unittest.TestCase):
             response = self.app.put(f'/products/{product.id}/update', json=updated_data)
             self.assertEqual(response.status_code, 200)
 
-    def test_remove_product(self):
-        """Test remove product endpoint"""
+    def test_invalid_product_update(self):
+        """Test invalid product update endpoint"""
+        with app.app_context():
+            updated_data = {
+                "name": "Updated Product",
+                "description": "Updated Description",
+                "category": "Updated Category",
+                "price": 75.0
+            }
+
+            invalid_update_response = self.app.put('/products/999/update', json=updated_data)
+            self.assertEqual(invalid_update_response.status_code, 404)
+
+
+    def test_valid_product_removal(self):
+        """Test valid product removal endpoint"""
         with app.app_context():
             product = Product(name="Test", description="Test Desc", category="Test Cat", price=50.0)
             db.session.add(product)
             db.session.commit()
+
             response = self.app.delete(f'/products/{product.id}/delete')
             self.assertEqual(response.status_code, 200)
+
+    def test_invalid_product_removal(self):
+        """Test invalid product removal endpoint"""
+        with app.app_context():
+            invalid_delete_response = self.app.delete('/products/999/delete')
+            self.assertEqual(invalid_delete_response.status_code, 404)
+
 
 if __name__ == '__main__':
     unittest.main()
