@@ -98,6 +98,7 @@ def product_update(product_id):
 
             db.session.commit()
             return jsonify({"message": "Product updated successfully"})
+        return jsonify({"message" : "Invalid product url"}), 404
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)})
@@ -113,6 +114,7 @@ def product_remove(product_id):
             db.session.delete(product)
             db.session.commit()
             return jsonify({"message": "Product deleted successfully"})
+        return jsonify({"message" : "Invalid product"}), 404
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)})
