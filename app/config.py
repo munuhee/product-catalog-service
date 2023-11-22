@@ -1,3 +1,8 @@
+"""Module for configuration settings.
+- loads environment variables using dotenv
+- sets up various configuration parameters for the Flask app.
+"""
+
 import os
 from dotenv import load_dotenv
 
