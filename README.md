@@ -9,7 +9,6 @@ This repository contains a Flask-based Product Catalog Service allowing manageme
 
 Before you can run the application, ensure you have the following prerequisites and dependencies:
 
-- **Python 3.10:** Required for running the Flask application.
 - **Docker:** Used for containerizing the application.
   
 ## Contents
