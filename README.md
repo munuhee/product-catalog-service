@@ -83,3 +83,7 @@ The `docker-img.yml` file in the repository sets up CI/CD using GitHub Actions f
 ## Testing
 
 The `app/tests` directory contains comprehensive unit tests (`test_product_endpoints.py`) for various product-related endpoints. The tests cover functionalities such as health status, product creation, retrieval, update, and deletion.
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues or pull requests for any improvements, bug fixes, or new features.
