@@ -1,9 +1,5 @@
 #!/bin/bash
 
-git clone https://github.com/munuhee/product-catalog-service.git
-
-cd product-catalog-service
-
 echo "🔨 Building the Docker image..."
 
 docker build -t product-catalog-service:latest .
