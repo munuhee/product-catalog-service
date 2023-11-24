@@ -43,5 +43,11 @@ jobs:
         pip install pytest pytest-cov
         FLASK_ENV=${{ secrets.FLASK_ENV }} pytest -c pytest.ini --cov --cov-fail-under=85
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag product-catalog-service:$(date +%s)
+    - name: Build and push the Docker image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: e-commerce-microservices/product-catalog-service
+        tags: v1, latest
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
