@@ -46,7 +46,7 @@ jobs:
     - name: Build and push the Docker image
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
-        image: e-commerce-microservices/product-catalog-service
+        image: munuhee/product-catalog-service
         tags: v1, latest
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
