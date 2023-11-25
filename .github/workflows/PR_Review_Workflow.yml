@@ -1,7 +1,7 @@
-name: Build and Push Docker Image
+name: Test pull requests
 
 on:
-  push:
+  pull_request:
     branches: [main]
 
 jobs:
@@ -23,6 +23,13 @@ jobs:
         python3 -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Initialize database
+      run: |
+        export FLASK_ENV=testing
+        flask db init
+        flask db migrate
+        flask db upgrade
+
     - name: Run pylint
       run: |
         pip install pylint
@@ -30,15 +37,6 @@ jobs:
 
     - name: Run Tests and Calculate Coverage
       run: |
-        export FLASK_ENV=testing
+        export FLASK_ENV=testing 
         pip install pytest pytest-cov
         pytest -c pytest.ini --cov --cov-fail-under=85
-
-    - name: Build and push the Docker image
-      uses: mr-smithers-excellent/docker-build-push@v6
-      with:
-        image: munuhee/product-catalog-service
-        tags: v1, latest
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
