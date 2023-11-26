@@ -13,7 +13,7 @@ Before you can run the application, ensure you have the following prerequisites 
   
 ## Contents
 
-- **bin:** Contains the setup script `setup.sh` for cloning and setting up the project.
+- **bin:** Contains the setup script `setup.sh` for setting up the project.
 - **app:** Directory for the Flask application.
   - **__init__.py:** Initializes the Flask app, configures SQLAlchemy, and sets up routes.
   - **config.py:** Holds configurations for the Flask app and tests.
