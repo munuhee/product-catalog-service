@@ -23,13 +23,6 @@ jobs:
         python3 -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Initialize database
-      run: |
-        export FLASK_ENV=testing
-        flask db init
-        flask db migrate
-        flask db upgrade
-
     - name: Run pylint
       run: |
         pip install pylint
