@@ -25,7 +25,6 @@ Before you can run the application, ensure you have the following prerequisites 
 - **.env:** Environment variables configuration file.
 - **LICENCE:** License file for the project.
 - **pytest.ini:** Configuration for pytest.
-- **run.py:** Additional entry point to run the Flask application.
 
 ## Running the Application
 
