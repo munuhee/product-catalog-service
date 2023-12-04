@@ -24,7 +24,9 @@ def create_product():
             name=data["name"],
             description=data["description"],
             category=data["category"],
-            price=data["price"],
+            weight=data["weight"],
+            dimension=data["dimension"],
+            price=data["price"]
         )
 
         db.session.add(new_product)
@@ -48,6 +50,8 @@ def get_products():
             "name": product.name,
             "description": product.description,
             "category": product.category,
+            "weight": product.weight,
+            "dimension": product.dimension,
             "price": product.price,
             "date_added": product.date_added.strftime("%Y-%m-%d %H:%M:%S")
         } for product in products]
@@ -72,6 +76,8 @@ def get_product(product_id):
                 "name": product.name,
                 "description": product.description,
                 "category": product.category,
+                "weight": product.weight,
+                "dimension": product.dimension,
                 "price": product.price,
                 "date_added": product.date_added.strftime("%Y-%m-%d %H:%M:%S")
             }
@@ -93,6 +99,8 @@ def product_update(product_id):
             data = request.get_json()
             product.name = data["name"]
             product.description = data["description"]
+            product.weight=data["weight"],
+            product.dimension=data["dimension"],
             product.category = data["category"]
             product.price = data["price"]
 

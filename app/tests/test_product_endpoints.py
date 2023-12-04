@@ -40,6 +40,8 @@ class TestProductEndpoints(unittest.TestCase):
                 "name": "Test Product",
                 "description": "Test Description",
                 "category": "Test Category",
+                "weight": 4.5,
+                "dimension": "4m x 3m",
                 "price": 99.99
             }
             response = self.app.post('/product-create', json=data)
@@ -59,12 +61,16 @@ class TestProductEndpoints(unittest.TestCase):
                 name="Product 1",
                 description="Description 1",
                 category="Category 1",
+                weight=4.5,
+                dimension="4m x 3m",
                 price=10.0
             )
             product2 = Product(
                 name="Product 2",
                 description="Description 2",
                 category="Category 2",
+                weight=3.0,
+                dimension="3m x 3m",
                 price=20.0
             )
             db.session.add(product1)
@@ -79,7 +85,14 @@ class TestProductEndpoints(unittest.TestCase):
     def test_get_product(self):
         """Test get single product endpoint"""
         with app.app_context():
-            product = Product(name="Test", description="Test Desc", category="Test Cat", price=50.0)
+            product = Product(
+                            name="Test",
+                            description="Test Desc",
+                            category="Test Cat",
+                            weight=3.0,
+                            dimension="3m x 3m",
+                            price=50.0
+                        )
             db.session.add(product)
             db.session.commit()
 
@@ -96,15 +109,24 @@ class TestProductEndpoints(unittest.TestCase):
     def test_valid_product_update(self):
         """Test valid product update endpoint"""
         with app.app_context():
-            product = Product(name="Test", description="Test Desc", category="Test Cat", price=50.0)
+            product = Product(
+                        name="Test",
+                        description="Test Desc",
+                        category="Test Cat",
+                        weight=3.0,
+                        dimension="3m x 3m",
+                        price=50.0
+                    )
             db.session.add(product)
             db.session.commit()
 
             updated_data = {
-                "name": "Updated Product",
-                "description": "Updated Description",
-                "category": "Updated Category",
-                "price": 75.0
+                "name": "Test Product",
+                "description": "Test Description",
+                "category": "Test Category",
+                "weight": 4.5,
+                "dimension": "4m x 3m",
+                "price": 99.99
             }
             response = self.app.put(f'/products/{product.id}/update', json=updated_data)
             self.assertEqual(response.status_code, 200)
@@ -113,10 +135,12 @@ class TestProductEndpoints(unittest.TestCase):
         """Test invalid product update endpoint"""
         with app.app_context():
             updated_data = {
-                "name": "Updated Product",
-                "description": "Updated Description",
-                "category": "Updated Category",
-                "price": 75.0
+                "name": "Test Product",
+                "description": "Test Description",
+                "category": "Test Category",
+                "weight": 4.5,
+                "dimension": "4m x 3m",
+                "price": 99.99
             }
 
             invalid_update_response = self.app.put('/products/999/update', json=updated_data)
@@ -126,7 +150,14 @@ class TestProductEndpoints(unittest.TestCase):
     def test_valid_product_removal(self):
         """Test valid product removal endpoint"""
         with app.app_context():
-            product = Product(name="Test", description="Test Desc", category="Test Cat", price=50.0)
+            product = Product(
+                        name="Test",
+                        description="Test Desc",
+                        category="Test Cat",
+                        weight=3.0,
+                        dimension="3m x 3m",
+                        price=50.0
+                    )
             db.session.add(product)
             db.session.commit()
 
